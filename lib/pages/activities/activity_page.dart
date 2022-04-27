@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:impack/constants.dart';
+import 'package:impack/pages/activities/new_activity_page.dart';
 import 'package:impack/widgets/app_header.dart';
 
 class ActivityPage extends StatelessWidget {
@@ -30,7 +31,12 @@ class ActivityPage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const NewActivityPage()),
+          );
+        },
         child: const Icon(Icons.add),
         backgroundColor: Constants.primaryColor,
       ),
