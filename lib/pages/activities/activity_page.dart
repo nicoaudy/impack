@@ -9,9 +9,24 @@ class ActivityPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: const [
-          AppHeader(),
-          ListTile(),
+        children: [
+          const AppHeader(),
+          Container(
+            decoration: const BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  width: 1,
+                  style: BorderStyle.solid,
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+            child: const ListTile(
+              leading: Text('09:00'),
+              title: Text('Thursday, 01 April 2022'),
+              subtitle: Text('Meeting with CV Anugrah Jaya'),
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
