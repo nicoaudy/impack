@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:impack/constants.dart';
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:impack/widgets/button.dart';
+import 'package:impack/widgets/label.dart';
 
 class NewActivityPage extends StatefulWidget {
   const NewActivityPage({Key? key}) : super(key: key);
@@ -51,15 +53,7 @@ class _NewActivityPageState extends State<NewActivityPage> {
       body: ListView(
         children: [
           const SizedBox(height: 20),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: Text(
-              "What do you want to do?",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+          const Label(title: "What do you want to do?"),
           Padding(
             padding: const EdgeInsets.all(8),
             child: Container(
@@ -91,15 +85,7 @@ class _NewActivityPageState extends State<NewActivityPage> {
             ),
           ),
           const SizedBox(height: 10),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: Text(
-              "Who do you want to meet/call?",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+          const Label(title: "Who do you want to meet/call?"),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
@@ -123,15 +109,7 @@ class _NewActivityPageState extends State<NewActivityPage> {
             ),
           ),
           const SizedBox(height: 10),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: Text(
-              "When do you want to meet/call CV Anugrah Jaya",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+          const Label(title: "When do you want to meet/call CV Anugrah Jaya"),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: DateTimePicker(
@@ -161,15 +139,7 @@ class _NewActivityPageState extends State<NewActivityPage> {
             ),
           ),
           const SizedBox(height: 10),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: Text(
-              "Why do you want to meet/call CV Anugrah Jaya?",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+          const Label(title: "Why do you want to meet/call CV Anugrah Jaya?"),
           Padding(
             padding: const EdgeInsets.all(8),
             child: Container(
@@ -201,15 +171,7 @@ class _NewActivityPageState extends State<NewActivityPage> {
             ),
           ),
           const SizedBox(height: 10),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: Text(
-              "Could you describe it more details?",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+          const Label(title: "Could you describe it more details?"),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
@@ -228,30 +190,7 @@ class _NewActivityPageState extends State<NewActivityPage> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: double.infinity,
-              height: 60,
-              decoration: BoxDecoration(
-                color: Constants.buttonColor,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: GestureDetector(
-                onTap: () {},
-                child: const Center(
-                  child: Text(
-                    "Submit",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          Button(onTap: () {}, title: "Submit"),
         ],
       ),
     );
