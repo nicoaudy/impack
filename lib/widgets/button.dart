@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:impack/constants.dart';
 
 class Button extends StatelessWidget {
-  final Function onTap;
+  final VoidCallback onTap;
   final String title;
   const Button({
     Key? key,
@@ -22,7 +22,7 @@ class Button extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         child: GestureDetector(
-          onTap: () => onTap,
+          onTap: onTap,
           child: Center(
             child: Text(
               title,

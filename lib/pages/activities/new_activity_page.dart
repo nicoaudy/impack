@@ -14,8 +14,11 @@ class NewActivityPage extends StatefulWidget {
 class _NewActivityPageState extends State<NewActivityPage> {
   final todos = ['Meeting', 'Phone Call'];
   final objectives = ['New Order', 'Invoice', 'New Leads'];
-  String? selectedTodo;
-  String? selectedObjective;
+  String? activityType;
+  String? intitution;
+  String? objective;
+  String? when;
+  String? remarks;
 
   DropdownMenuItem<String> todoItem(String todo) {
     return DropdownMenuItem(
@@ -29,6 +32,14 @@ class _NewActivityPageState extends State<NewActivityPage> {
       value: objective,
       child: Text(objective),
     );
+  }
+
+  submit() {
+    print(activityType);
+    print(intitution);
+    print(objective);
+    print(when);
+    print(remarks);
   }
 
   @override
@@ -66,11 +77,11 @@ class _NewActivityPageState extends State<NewActivityPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(6),
                   child: DropdownButton(
-                    value: selectedTodo,
+                    value: activityType,
                     items: todos.map(todoItem).toList(),
                     onChanged: (val) {
                       setState(() {
-                        selectedTodo = val.toString();
+                        activityType = val.toString();
                       });
                     },
                     iconSize: 36,
@@ -89,6 +100,9 @@ class _NewActivityPageState extends State<NewActivityPage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              onChanged: (val) => setState(() {
+                intitution = val;
+              }),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.all(20),
                 enabledBorder: OutlineInputBorder(
@@ -130,12 +144,16 @@ class _NewActivityPageState extends State<NewActivityPage> {
               initialValue: DateTime.now().toString(),
               firstDate: DateTime(DateTime.now().year),
               lastDate: DateTime(DateTime.now().year + 5),
-              onChanged: (val) => print(val),
-              validator: (val) {
-                print(val);
-                return null;
+              onChanged: (val) {
+                setState(() {
+                  when = val;
+                });
               },
-              onSaved: (val) => print(val),
+              onSaved: (val) {
+                setState(() {
+                  when = val;
+                });
+              },
             ),
           ),
           const SizedBox(height: 10),
@@ -152,11 +170,11 @@ class _NewActivityPageState extends State<NewActivityPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(6),
                   child: DropdownButton(
-                    value: selectedObjective,
+                    value: objective,
                     items: objectives.map(objectiveItem).toList(),
                     onChanged: (val) {
                       setState(() {
-                        selectedObjective = val.toString();
+                        objective = val.toString();
                       });
                     },
                     iconSize: 36,
@@ -176,6 +194,9 @@ class _NewActivityPageState extends State<NewActivityPage> {
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
               maxLines: 4,
+              onChanged: (val) => setState(() {
+                remarks = val;
+              }),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.all(20),
                 enabledBorder: OutlineInputBorder(
@@ -190,7 +211,10 @@ class _NewActivityPageState extends State<NewActivityPage> {
               ),
             ),
           ),
-          Button(onTap: () {}, title: "Submit"),
+          Button(
+            onTap: () => submit(),
+            title: "Submit",
+          ),
         ],
       ),
     );
