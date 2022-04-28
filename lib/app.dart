@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:impack/constants.dart';
 import 'package:impack/pages/activities/activity_page.dart';
 
 class App extends StatelessWidget {
@@ -6,9 +7,13 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ActivityPage(),
+      theme: ThemeData(
+        textSelectionTheme:
+            TextSelectionThemeData(cursorColor: Constants.primaryColor),
+      ),
+      home: const ActivityPage(),
     );
   }
 }
