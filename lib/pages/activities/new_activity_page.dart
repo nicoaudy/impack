@@ -1,6 +1,6 @@
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:impack/constants.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 
 class NewActivityPage extends StatefulWidget {
   const NewActivityPage({Key? key}) : super(key: key);
