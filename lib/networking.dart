@@ -13,6 +13,11 @@ class Networking {
     return response.data['activities'];
   }
 
+  Future getActivity(String id) async {
+    Response response = await _dio.get(_baseUrl + '/activity/' + id);
+    return response.data;
+  }
+
   Future postActivity(
     String activityType,
     String institution,
