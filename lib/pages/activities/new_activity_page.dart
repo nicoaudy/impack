@@ -135,7 +135,7 @@ class _NewActivityPageState extends State<NewActivityPage> {
             hintText: "CV Anugrah Jaya",
           ),
           const SizedBox(height: 10),
-          const Label(title: "When do you want to meet/call CV Anugrah Jaya"),
+          Label(title: "When do you want to meet/call ${institution ?? ''}?"),
           DatetimePicker(
             initialValue: when,
             onSaved: (val) {
@@ -145,7 +145,7 @@ class _NewActivityPageState extends State<NewActivityPage> {
             },
           ),
           const SizedBox(height: 10),
-          const Label(title: "Why do you want to meet/call CV Anugrah Jaya?"),
+          Label(title: "Why do you want to meet/call ${institution ?? ''}?"),
           Dropdown(
             selected: objective.toString(),
             lists: objectives.map((item) {
