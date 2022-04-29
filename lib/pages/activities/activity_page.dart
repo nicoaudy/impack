@@ -1,68 +1,70 @@
 import 'package:flutter/material.dart';
 import 'package:impack/constants.dart';
+import 'package:impack/networking.dart';
 import 'package:impack/pages/activities/detail_activity_page.dart';
 import 'package:impack/pages/activities/new_activity_page.dart';
+import 'package:impack/widgets/activity_item.dart';
 import 'package:impack/widgets/app_header.dart';
+import 'package:impack/widgets/bottom_navigation.dart';
+import 'package:intl/intl.dart';
 
-class ActivityPage extends StatelessWidget {
+class ActivityPage extends StatefulWidget {
   const ActivityPage({Key? key}) : super(key: key);
+
+  @override
+  State<ActivityPage> createState() => _ActivityPageState();
+}
+
+class _ActivityPageState extends State<ActivityPage> {
+  late Future<List> activities;
+
+  @override
+  void initState() {
+    super.initState();
+    activities = Networking().getActivities();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Constants.primaryColor,
-        currentIndex: 0,
-        onTap: (val) {},
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white,
-        items: const [
-          BottomNavigationBarItem(
-            label: "Home",
-            icon: Icon(Icons.home),
-          ),
-          BottomNavigationBarItem(
-            label: "Activity",
-            icon: Icon(Icons.calendar_month),
-          ),
-          BottomNavigationBarItem(
-            label: "Orders",
-            icon: Icon(Icons.file_copy_outlined),
-          ),
-          BottomNavigationBarItem(
-            label: "My Profile",
-            icon: Icon(Icons.account_circle_outlined),
-          ),
-        ],
-      ),
+      bottomNavigationBar: const BottomNavigation(),
       body: Column(
         children: [
           const AppHeader(),
-          Container(
-            decoration: const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  width: 1,
-                  style: BorderStyle.solid,
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const DetailActivityPage(),
-                  ),
-                );
+          Expanded(
+            child: FutureBuilder<List>(
+              future: activities,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List? data = snapshot.data;
+                  return ListView.builder(
+                    itemCount: data!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final activity = data[index];
+                      final when = DateTime.parse(activity['when']);
+                      final date = DateFormat('dd-MMMM-yyyy').format(when);
+                      final time = DateFormat('HH:mm').format(when);
+
+                      return ActivityItem(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DetailActivityPage(),
+                          ),
+                        ),
+                        date: date,
+                        time: time,
+                        title:
+                            "${activity['activityType']} with ${activity['institution']}",
+                        subtitle: activity['remarks'],
+                      );
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return Text("${snapshot.error}");
+                }
+                return const Center(child: CircularProgressIndicator());
               },
-              child: const ListTile(
-                leading: Text('09:00'),
-                title: Text('Thursday, 01 April 2022'),
-                subtitle: Text('Meeting with CV Anugrah Jaya'),
-              ),
             ),
           ),
         ],
