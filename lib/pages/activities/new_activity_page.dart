@@ -51,7 +51,11 @@ class _NewActivityPageState extends State<NewActivityPage> {
       loading = true;
     });
 
-    if (activityType.isEmpty || objective.isEmpty || when.isEmpty) {
+    if (activityType.isEmpty ||
+        objective.isEmpty ||
+        when.isEmpty ||
+        institution.text.isEmpty ||
+        remarks.text.isEmpty) {
       // Simple toast validation
       // only client side validation for now
       _showToast(
@@ -123,16 +127,12 @@ class _NewActivityPageState extends State<NewActivityPage> {
           const SizedBox(height: 10),
           const Label(title: "Who do you want to meet/call?"),
           TextInput(
-            onChanged: (val) {
-              setState(() {
-                institution.text = val;
-              });
-            },
+            onChanged: (val) => setState(() {}),
             hintText: "CV Anugrah Jaya",
             controller: institution,
           ),
           const SizedBox(height: 10),
-          Label(title: "When do you want to meet/call $institution?"),
+          Label(title: "When do you want to meet/call ${institution.text}?"),
           DatetimePicker(
             initialValue: when,
             onSaved: (val) {
@@ -142,7 +142,7 @@ class _NewActivityPageState extends State<NewActivityPage> {
             },
           ),
           const SizedBox(height: 10),
-          Label(title: "Why do you want to meet/call $institution?"),
+          Label(title: "Why do you want to meet/call ${institution.text}?"),
           Dropdown(
             selected: objective.toString(),
             lists: objectives.map((item) {
@@ -157,11 +157,7 @@ class _NewActivityPageState extends State<NewActivityPage> {
           const SizedBox(height: 10),
           const Label(title: "Could you describe it more details?"),
           TextArea(
-            onChanged: (val) {
-              setState(() {
-                remarks.text = val;
-              });
-            },
+            onChanged: (val) => setState(() {}),
             controller: remarks,
           ),
           Button(onTap: () => submit(), title: "Submit", loading: loading),

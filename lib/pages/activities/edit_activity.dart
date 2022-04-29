@@ -73,7 +73,11 @@ class _EditActivityPageState extends State<EditActivityPage> {
       loading = true;
     });
 
-    if (activityType.isEmpty || objective.isEmpty || when.isEmpty) {
+    if (activityType.isEmpty ||
+        objective.isEmpty ||
+        when.isEmpty ||
+        institution.text.isEmpty ||
+        remarks.text.isEmpty) {
       // Simple toast validation
       // only client side validation for now
       _showToast(
@@ -96,7 +100,6 @@ class _EditActivityPageState extends State<EditActivityPage> {
       objective,
       remarks.text,
     );
-    print(response);
 
     if (response['status'] == 'OK') {
       _showToast(
@@ -151,11 +154,7 @@ class _EditActivityPageState extends State<EditActivityPage> {
                 const SizedBox(height: 10),
                 const Label(title: "Who do you want to meet/call?"),
                 TextInput(
-                  onChanged: (val) {
-                    setState(() {
-                      institution.text = val;
-                    });
-                  },
+                  onChanged: (val) => setState(() {}),
                   controller: institution,
                   hintText: "CV Anugrah Jaya",
                 ),
@@ -189,11 +188,7 @@ class _EditActivityPageState extends State<EditActivityPage> {
                 const SizedBox(height: 10),
                 const Label(title: "Could you describe it more details?"),
                 TextArea(
-                  onChanged: (val) {
-                    setState(() {
-                      remarks.text = val;
-                    });
-                  },
+                  onChanged: (val) => setState(() {}),
                   controller: remarks,
                 ),
                 Button(

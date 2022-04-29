@@ -41,7 +41,7 @@ class _DetailActivityPageState extends State<DetailActivityPage> {
         ),
         centerTitle: true,
         title: const Text(
-          "New Activity",
+          "Detail Activity",
           style: TextStyle(
             fontSize: 20,
             color: Colors.white,
