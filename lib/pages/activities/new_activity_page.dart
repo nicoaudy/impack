@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:impack/constants.dart';
+import 'package:impack/networking.dart';
 import 'package:impack/widgets/label.dart';
 import 'package:impack/widgets/button.dart';
 import 'package:impack/widgets/dropdown.dart';
@@ -20,16 +23,16 @@ class _NewActivityPageState extends State<NewActivityPage> {
 
   bool loading = false;
   String activityType = 'Meeting';
-  String? intitution;
+  String? institution;
   String objective = 'New Order';
   String when = DateTime.now().toString();
   String? remarks;
 
-  void _showToast(BuildContext context, String message) {
+  void _showToast(BuildContext context, String message, bool success) {
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(
       SnackBar(
-        backgroundColor: Colors.red[200],
+        backgroundColor: !success ? Colors.red[200] : Constants.primaryColor,
         content: Text(
           message,
           style:
@@ -44,13 +47,13 @@ class _NewActivityPageState extends State<NewActivityPage> {
     );
   }
 
-  submit() {
+  submit() async {
     setState(() {
       loading = true;
     });
 
     if (activityType.isEmpty ||
-        intitution == null ||
+        institution == null ||
         objective.isEmpty ||
         when.isEmpty ||
         remarks == null) {
@@ -59,10 +62,32 @@ class _NewActivityPageState extends State<NewActivityPage> {
       _showToast(
         context,
         "Whops👻! \nPlease check your input! We need backend validation also😂",
+        false,
       );
       setState(() {
         loading = false;
       });
+
+      return;
+    }
+
+    final response = await Networking().postActivity(
+      activityType,
+      institution!,
+      when,
+      objective,
+      remarks!,
+    );
+
+    if (response['status'] == 'OK') {
+      _showToast(
+        context,
+        "👋 Data has been submitted successfully",
+        true,
+      );
+
+      // Wait a bit before pop
+      Timer(const Duration(seconds: 2), () => Navigator.of(context).pop());
     }
   }
 
@@ -105,7 +130,7 @@ class _NewActivityPageState extends State<NewActivityPage> {
           TextInput(
             onChanged: (val) {
               setState(() {
-                intitution = val;
+                institution = val;
               });
             },
             hintText: "CV Anugrah Jaya",
