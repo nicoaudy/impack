@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:impack/constants.dart';
 
 class DetailActivityPage extends StatelessWidget {
-  const DetailActivityPage({Key? key}) : super(key: key);
+  final String id;
+  const DetailActivityPage({Key? key, required this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

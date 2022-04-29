@@ -43,6 +43,5 @@ class ActivityItem extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

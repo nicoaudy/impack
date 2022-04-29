@@ -49,7 +49,9 @@ class _ActivityPageState extends State<ActivityPage> {
                         onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const DetailActivityPage(),
+                            builder: (context) => DetailActivityPage(
+                              id: activity['id'].toString(),
+                            ),
                           ),
                         ),
                         date: date,
