@@ -3,7 +3,7 @@ import 'package:impack/constants.dart';
 
 class Dropdown extends StatelessWidget {
   final String selected;
-  final lists;
+  final List<DropdownMenuItem<String>> lists;
   final Function onChange;
 
   const Dropdown({
@@ -12,13 +12,6 @@ class Dropdown extends StatelessWidget {
     required this.lists,
     required this.onChange,
   }) : super(key: key);
-
-  DropdownMenuItem<String> listItem(String item) {
-    return DropdownMenuItem(
-      value: item,
-      child: Text(item),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +28,7 @@ class Dropdown extends StatelessWidget {
             padding: const EdgeInsets.all(6),
             child: DropdownButton(
               value: selected,
-              items: lists.map(listItem).toList(),
+              items: lists,
               onChanged: (val) => onChange(val),
               iconSize: 36,
               icon: Icon(

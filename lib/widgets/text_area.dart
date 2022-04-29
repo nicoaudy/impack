@@ -1,0 +1,33 @@
+import 'package:flutter/material.dart';
+import 'package:impack/constants.dart';
+
+class TextArea extends StatelessWidget {
+  final Function onChanged;
+  const TextArea({
+    Key? key,
+    required this.onChanged,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        maxLines: 4,
+        onChanged: (val) => onChanged(val),
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.all(20),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Constants.outlineColor),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Constants.outlineColor),
+          ),
+          filled: true,
+          fillColor: Constants.focusColor,
+        ),
+      ),
+    );
+  }
+}
