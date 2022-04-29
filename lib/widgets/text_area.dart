@@ -3,9 +3,11 @@ import 'package:impack/constants.dart';
 
 class TextArea extends StatelessWidget {
   final Function onChanged;
+  final TextEditingController controller;
   const TextArea({
     Key? key,
     required this.onChanged,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -15,6 +17,7 @@ class TextArea extends StatelessWidget {
       child: TextFormField(
         maxLines: 4,
         onChanged: (val) => onChanged(val),
+        controller: controller,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(20),
           enabledBorder: OutlineInputBorder(

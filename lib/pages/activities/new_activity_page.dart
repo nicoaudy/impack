@@ -22,10 +22,10 @@ class _NewActivityPageState extends State<NewActivityPage> {
 
   bool loading = false;
   String activityType = 'Meeting';
-  String? institution;
   String objective = 'New Order';
   String when = DateTime.now().toString();
-  String? remarks;
+  late TextEditingController institution = TextEditingController();
+  late TextEditingController remarks = TextEditingController();
 
   void _showToast(BuildContext context, String message, bool success) {
     final scaffold = ScaffoldMessenger.of(context);
@@ -51,11 +51,7 @@ class _NewActivityPageState extends State<NewActivityPage> {
       loading = true;
     });
 
-    if (activityType.isEmpty ||
-        institution == null ||
-        objective.isEmpty ||
-        when.isEmpty ||
-        remarks == null) {
+    if (activityType.isEmpty || objective.isEmpty || when.isEmpty) {
       // Simple toast validation
       // only client side validation for now
       _showToast(
@@ -72,10 +68,10 @@ class _NewActivityPageState extends State<NewActivityPage> {
 
     final response = await Networking().postActivity(
       activityType,
-      institution!,
+      institution.text,
       when,
       objective,
-      remarks!,
+      remarks.text,
     );
 
     if (response['status'] == 'OK') {
@@ -129,13 +125,14 @@ class _NewActivityPageState extends State<NewActivityPage> {
           TextInput(
             onChanged: (val) {
               setState(() {
-                institution = val;
+                institution.text = val;
               });
             },
             hintText: "CV Anugrah Jaya",
+            controller: institution,
           ),
           const SizedBox(height: 10),
-          Label(title: "When do you want to meet/call ${institution ?? ''}?"),
+          Label(title: "When do you want to meet/call $institution?"),
           DatetimePicker(
             initialValue: when,
             onSaved: (val) {
@@ -145,7 +142,7 @@ class _NewActivityPageState extends State<NewActivityPage> {
             },
           ),
           const SizedBox(height: 10),
-          Label(title: "Why do you want to meet/call ${institution ?? ''}?"),
+          Label(title: "Why do you want to meet/call $institution?"),
           Dropdown(
             selected: objective.toString(),
             lists: objectives.map((item) {
@@ -159,11 +156,14 @@ class _NewActivityPageState extends State<NewActivityPage> {
           ),
           const SizedBox(height: 10),
           const Label(title: "Could you describe it more details?"),
-          TextArea(onChanged: (val) {
-            setState(() {
-              remarks = val;
-            });
-          }),
+          TextArea(
+            onChanged: (val) {
+              setState(() {
+                remarks.text = val;
+              });
+            },
+            controller: remarks,
+          ),
           Button(onTap: () => submit(), title: "Submit", loading: loading),
         ],
       ),

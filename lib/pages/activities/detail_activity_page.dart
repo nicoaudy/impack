@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:impack/constants.dart';
 import 'package:impack/networking.dart';
+import 'package:impack/pages/activities/edit_activity.dart';
 import 'package:impack/widgets/button.dart';
 import 'package:impack/widgets/text_area.dart';
 
@@ -14,6 +15,7 @@ class DetailActivityPage extends StatefulWidget {
 
 class _DetailActivityPageState extends State<DetailActivityPage> {
   Map activity = {};
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
@@ -71,7 +73,16 @@ class _DetailActivityPageState extends State<DetailActivityPage> {
                     Text(activity['remarks'] ?? ''),
                     const Spacer(),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditActivityPage(
+                              id: widget.id.toString(),
+                            ),
+                          ),
+                        );
+                      },
                       child: Container(
                         height: 40,
                         decoration: BoxDecoration(
@@ -106,7 +117,7 @@ class _DetailActivityPageState extends State<DetailActivityPage> {
               ),
             ),
           ),
-          TextArea(onChanged: () {}),
+          TextArea(onChanged: () {}, controller: _controller),
           Button(onTap: () {}, title: "Complete Activity", loading: false),
         ],
       ),

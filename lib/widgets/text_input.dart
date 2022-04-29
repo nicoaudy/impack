@@ -4,10 +4,12 @@ import 'package:impack/constants.dart';
 class TextInput extends StatelessWidget {
   final Function onChanged;
   final String hintText;
+  final TextEditingController controller;
   const TextInput({
     Key? key,
     required this.onChanged,
     required this.hintText,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -16,6 +18,7 @@ class TextInput extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         onChanged: (val) => onChanged(val),
+        controller: controller,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(20),
           enabledBorder: OutlineInputBorder(

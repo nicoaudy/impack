@@ -43,4 +43,32 @@ class Networking {
     );
     return response.data;
   }
+
+  Future editActivity(
+    String id,
+    String activityType,
+    String institution,
+    String when,
+    String objective,
+    String remarks,
+  ) async {
+    var params = {
+      "id": id,
+      "activityType": activityType,
+      "institution": institution,
+      "when": when,
+      "objective": objective,
+      "remarks": remarks
+    };
+    Response response = await _dio.put(
+      _baseUrl + '/activity/$id',
+      options: Options(
+        headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+        },
+      ),
+      data: jsonEncode(params),
+    );
+    return response.data;
+  }
 }
